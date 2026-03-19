@@ -1,0 +1,49 @@
+# 依赖
+node_modules
+.pnp
+.pnp.js
+
+# 测试
+coverage
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# 生产环境
+.env*.local
+.env
+
+# 调试
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# 数据库
+*.db
+*.db-journal
+dev.db
+prisma/migrations/
+
+# SecondMe 配置敏感信息
+.secondme/state.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

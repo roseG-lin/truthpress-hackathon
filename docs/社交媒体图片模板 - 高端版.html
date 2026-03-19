@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TruthPress × SecondMe · 社交媒体图片模板</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    :root {
+      /* 渐变背景色系 - 明显的从左到右渐变 */
+      --bg-left: #0a0a0f;
+      --bg-mid: #1a1a2e;
+      --bg-right: #16213e;
+      --bg-accent: #0f3460;
+      
+      /* 品牌渐变 */
+      --gradient-start: #007aff;
+      --gradient-mid: #5e5ce6;
+      --gradient-end: #bf5af2;
+      
+      /* 文字系统 */
+      --text-primary: #f5f5f7;
+      --text-secondary: #98989d;
+      --text-tertiary: #6e6e73;
+      
+      /* 毛玻璃效果 */
+      --glass-bg: rgba(25, 25, 45, 0.55);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-blur: 24px;
+      
+      /* 阴影 */
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+      
+      /* 圆角 */
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      /* 明显的从左到右渐变 - 深蓝到蓝紫 */
+      background: linear-gradient(90deg, 
+        var(--bg-left) 0%, 
+        var(--bg-mid) 35%, 
+        var(--bg-right) 70%, 
+        var(--bg-accent) 100%
+      );
+      background-attachment: fixed;
+      color: var(--text-primary);
+      padding: 60px 40px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    header h1 {
+      font-size: 46px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 16px;
+    }
+
+    header p {
+      font-size: 17px;
+      color: var(--text-secondary);
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .template-card {
+      background: linear-gradient(90deg, 
+        rgba(10, 10, 15, 0.95) 0%, 
+        rgba(26, 26, 46, 0.9) 50%, 
+        rgba(22, 33, 62, 0.85) 100%
+      );
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .template-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .template-header h3 {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .template-header p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* 推文主图 */
+    .tweet-image {
+      width: 100%;
+      aspect-ratio: 1200/675;
+      background: linear-gradient(90deg, 
+        rgba(10, 10, 15, 0.92) 0%, 
+        rgba(26, 26, 46, 0.88) 50%, 
+        rgba(22, 33, 62, 0.85) 100%
+      );
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tweet-image::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(0, 122, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(100px);
+    }
+
+    .tweet-image::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -15%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(191, 90, 242, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(100px);
+    }
+
+    .tweet-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .tweet-logo {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+    }
+
+    .tweet-title {
+      font-size: 60px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .tweet-subtitle {
+      font-size: 17px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+    }
+
+    .tweet-features {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--glass-blur));
+      padding: 14px 26px;
+      border-radius: 50px;
+      border: 1px solid var(--glass-border);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .feature-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid));
+    }
+
+    /* 倒计时卡片 */
+    .countdown-card {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: linear-gradient(90deg, 
+        rgba(10, 10, 15, 0.92) 0%, 
+        rgba(26, 26, 46, 0.88) 50%, 
+        rgba(22, 33, 62, 0.85) 100%
+      );
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .countdown-card::before {
+      content: '';
+      position: absolute;
+      top: -25%;
+      right: -25%;
+      width: 55%;
+      height: 55%;
+      background: radial-gradient(circle, rgba(0, 122, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(120px);
+    }
+
+    .countdown-number {
+      font-size: 170px;
+      font-weight: 700;
+      background: linear-gradient(180deg, var(--gradient-start), var(--gradient-mid));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .countdown-text {
+      font-size: 15px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+
+    .countdown-title {
+      font-size: 26px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .countdown-date {
+      font-size: 15px;
+      color: var(--text-tertiary);
+    }
+
+    /* 功能卡片 */
+    .feature-card {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: linear-gradient(90deg, 
+        rgba(10, 10, 15, 0.92) 0%, 
+        rgba(26, 26, 46, 0.88) 50%, 
+        rgba(22, 33, 62, 0.85) 100%
+      );
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -20%;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(191, 90, 242, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(100px);
+    }
+
+    .feature-number {
+      font-size: 76px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.04);
+      position: absolute;
+      top: 32px;
+      right: 48px;
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-icon svg {
+      width: 56px;
+      height: 56px;
+    }
+
+    .feature-title {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .feature-desc {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text-secondary);
+    }
+
+    .feature-desc strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* 按钮 */
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      padding: 24px 32px;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid));
+      color: white;
+      box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* 说明区域 */
+    .info-section {
+      background: linear-gradient(90deg, 
+        rgba(10, 10, 15, 0.95) 0%, 
+        rgba(26, 26, 46, 0.9) 50%, 
+        rgba(22, 33, 62, 0.85) 100%
+      );
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-top: 40px;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+
+    .info-section h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--gradient-start);
+    }
+
+    .info-section ul {
+      list-style: none;
+    }
+
+    .info-section li {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--glass-border);
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    .info-section li:last-child {
+      border-bottom: none;
+    }
+
+    .info-section li::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid));
+      margin-right: 12px;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 768px) {
+      .templates-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tweet-title {
+        font-size: 40px;
+      }
+
+      .countdown-number {
+        font-size: 110px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>社交媒体图片模板</h1>
+      <p>TruthPress × SecondMe · 黑客松宣发素材</p>
+    </header>
+
+    <div class="templates-grid">
+      <!-- 推文主图 -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>Twitter/X 推文主图</h3>
+          <p>尺寸：1200×675px · 用于正式发布</p>
+        </div>
+        <div class="tweet-image">
+          <div class="tweet-content">
+            <div class="tweet-logo">TRUTHPRESS × SECONDME</div>
+            <div class="tweet-title">共识引擎</div>
+            <div class="tweet-subtitle">Consensus Engine</div>
+            <div class="tweet-features">
+              <div class="feature-item">
+                <div class="feature-dot"></div>
+                <span>自动对手匹配</span>
+              </div>
+              <div class="feature-item">
+                <div class="feature-dot"></div>
+                <span>多智能体辩论</span>
+              </div>
+              <div class="feature-item">
+                <div class="feature-dot"></div>
+                <span>结构化事实核查</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="downloadImage('tweet-1', 'tweet-main.png')">下载图片</button>
+          <button class="btn btn-secondary" onclick="copyTweetText()">复制文案</button>
+        </div>
+      </div>
+
+      <!-- 倒计时卡片 -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>倒计时海报</h3>
+          <p>尺寸：1000×1000px · 用于微博/朋友圈</p>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-number">3</div>
+          <div class="countdown-text">Days To Go</div>
+          <div class="countdown-title">TruthPress × SecondMe</div>
+          <div class="countdown-date">3 · 17 · 2026</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="downloadImage('countdown-1', 'countdown-3.png')">下载图片</button>
+          <button class="btn btn-secondary" onclick="copyCountdownText()">复制文案</button>
+        </div>
+      </div>
+
+      <!-- 功能卡片 1 -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>功能卡片 · 自动对手匹配</h3>
+          <p>尺寸：1000×1000px · 用于特性介绍</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-number">01</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="24" r="10" stroke="url(#grad1)" stroke-width="2.5" fill="none"/>
+              <circle cx="32" cy="24" r="10" stroke="url(#grad1)" stroke-width="2.5" fill="none"/>
+              <path d="M22 24h4" stroke="url(#grad1)" stroke-width="2.5" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#007aff"/>
+                  <stop offset="100%" style="stop-color:#5e5ce6"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="feature-title">自动对手匹配</div>
+          <div class="feature-desc">
+            用户提交争议观点后，系统<strong>优先在历史观点池中寻找真实存在的相反立场</strong>。
+            <br><br>
+            如果找不到真人对手，DeepSeek 会生成一个<strong>可信的合成对手人格</strong>。
+          </div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="downloadImage('feature-1', 'feature-01.png')">下载图片</button>
+        </div>
+      </div>
+
+      <!-- 功能卡片 2 -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>功能卡片 · 多智能体辩论</h3>
+          <p>尺寸：1000×1000px · 用于特性介绍</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-number">02</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 12h20v16H18l-4 4V12z" stroke="url(#grad2)" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
+              <path d="M34 20v8l4 4V20H34z" stroke="url(#grad2)" stroke-width="2.5" stroke-linejoin="round" fill="none" opacity="0.6"/>
+              <circle cx="19" cy="20" r="2" fill="url(#grad2)"/>
+              <circle cx="24" cy="20" r="2" fill="url(#grad2)"/>
+              <circle cx="29" cy="20" r="2" fill="url(#grad2)"/>
+              <defs>
+                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#007aff"/>
+                  <stop offset="100%" style="stop-color:#bf5af2"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="feature-title">多智能体辩论</div>
+          <div class="feature-desc">
+            <strong>Agent A</strong> 为用户观点辩护
+            <br>
+            <strong>Agent B</strong> 代入对手人格反驳
+            <br>
+            <strong>Judge C</strong> 抽取事实主张、搜索证据
+            <br><br>
+            线性流程，结构清晰，不跑题。
+          </div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="downloadImage('feature-2', 'feature-02.png')">下载图片</button>
+        </div>
+      </div>
+
+      <!-- 功能卡片 3 -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>功能卡片 · 结构化事实核查</h3>
+          <p>尺寸：1000×1000px · 用于特性介绍</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-number">03</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="8" width="28" height="32" rx="4" stroke="url(#grad3)" stroke-width="2.5" fill="none"/>
+              <path d="M18 20h12M18 28h12M18 36h8" stroke="url(#grad3)" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="34" cy="14" r="10" fill="url(#grad3)"/>
+              <path d="M29 14l3.5 3.5L39 11" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#007aff"/>
+                  <stop offset="100%" style="stop-color:#00c853"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="feature-title">结构化事实核查</div>
+          <div class="feature-desc">
+            Judge C 输出<strong>结构化裁决（verdict）</strong>
+            <br>
+            包含每条事实主张的核查结果
+            <br>
+            证据强弱标记
+            <br>
+            当前占优方
+            <br><br>
+            谁更有理，不是靠气势，而是靠证据。
+          </div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="downloadImage('feature-3', 'feature-03.png')">下载图片</button>
+        </div>
+      </div>
+
+      <!-- 功能卡片 4 -->
+      <div class="template-card">
+        <div class="template-header">
+          <h3>功能卡片 · 真理之梯动画</h3>
+          <p>尺寸：1000×1000px · 用于特性介绍</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-number">04</div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="34" width="12" height="10" rx="3" fill="url(#grad4)"/>
+              <rect x="18" y="24" width="12" height="10" rx="3" fill="url(#grad4)"/>
+              <rect x="30" y="14" width="12" height="10" rx="3" fill="url(#grad4)"/>
+              <path d="M12 34v-8M24 24v-8M36 14V6" stroke="url(#grad4)" stroke-width="2.5" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#007aff"/>
+                  <stop offset="50%" style="stop-color:#5e5ce6"/>
+                  <stop offset="100%" style="stop-color:#bf5af2"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="feature-title">真理之梯动画</div>
+          <div class="feature-desc">
+            基于 <strong>Apple HIG + Fluent 2 + Material 3</strong>
+            <br>
+            方块掉落：spring(300, 20) · 450ms
+            <br>
+            验证/破碎：ease-out / shake · 500-600ms
+            <br>
+            漩涡吸收：easeInOut · 1500ms
+            <br><br>
+            将抽象辩论过程可视化为具象阶梯。
+          </div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="downloadImage('feature-4', 'feature-04.png')">下载图片</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 使用说明 -->
+    <div class="info-section">
+      <h2>使用说明</h2>
+      <ul>
+        <li>点击"下载图片"按钮可以保存对应模板为 PNG 图片（或使用截图工具）</li>
+        <li>推文文案已预置在复制按钮中，可直接粘贴到社交媒体</li>
+        <li>所有模板都支持响应式显示，可在手机/电脑上预览</li>
+        <li>建议按顺序发布：倒计时 → 预告 → 正式发布 → 功能介绍 → 感谢</li>
+        <li>发布时请带上话题标签：#Hackathon2026 #AI #Debate #TruthMatters</li>
+      </ul>
+    </div>
+
+    <!-- 发布计划 -->
+    <div class="info-section" style="margin-top: 24px;">
+      <h2>发布计划建议</h2>
+      <ul>
+        <li><strong>Day -3:</strong> 发布倒计时海报（3 天）</li>
+        <li><strong>Day -2:</strong> 发布功能卡片 #1（自动对手匹配）</li>
+        <li><strong>Day -1:</strong> 发布功能卡片 #2（多智能体辩论）</li>
+        <li><strong>Day 0:</strong> 发布推文主图 + 正式宣布</li>
+        <li><strong>Day +1:</strong> 发布功能卡片 #3-4 + 感谢推文</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function downloadImage(elementId, filename) {
+      alert('提示：请使用截图工具保存该区域图片\n或使用浏览器开发者工具导出');
+    }
+
+    function copyTweetText() {
+      const text = `🏆 #Hackathon2026 参赛作品
+
+TruthPress × SecondMe 共识引擎
+
+自动对手匹配
+多智能体辩论
+结构化事实核查
+
+不是让 AI 吵架，而是让 AI 在证据约束下辩论。
+
+localhost:3000/cafe
+
+#AI #Debate #TruthMatters #SecondMe`;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        alert('推文文案已复制到剪贴板！');
+      }).catch(() => {
+        prompt('请手动复制以下文案:', text);
+      });
+    }
+
+    function copyCountdownText() {
+      const text = `⏳ 倒计时 3 天
+
+TruthPress × SecondMe 共识引擎即将亮相黑客松 2026
+
+3 · 17 · 2026
+
+#Hackathon2026 #AI #TruthPress`;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        alert('倒计时文案已复制到剪贴板！');
+      }).catch(() => {
+        prompt('请手动复制以下文案:', text);
+      });
+    }
+  </script>
+</body>
+</html>

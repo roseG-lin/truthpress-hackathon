@@ -1,0 +1,110 @@
+// Prisma Schema for SecondMe Integration
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 用户表 - 存储从 SecondMe OAuth 认证的用户信息
+model User {
+  id           String   @id @default(cuid())
+  secondMeId   String   @unique  // SecondMe 用户 ID
+  accessToken  String            // OAuth 访问令牌
+  refreshToken String?           // OAuth 刷新令牌
+  tokenExpires DateTime          // 令牌过期时间
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // 关联
+  chats        Chat[]
+  contentHistory ContentHistory[]
+  memorySnapshots MemorySnapshot[]
+  notes        Note[]
+  profiles     Profile[]
+
+  @@index([secondMeId])
+}
+
+// 用户资料表 - 存储 shades 和 softmemory 信息
+model Profile {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  displayName  String?
+  bio          String?
+  shades       String?  @default("{}")  // JSON 存储用户 shades
+  softMemory   String?  @default("{}")  // JSON 存储软记忆
+  avatar       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// 聊天记录表
+model Chat {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String                    // 'user' 或 'assistant'
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+// 笔记表
+model Note {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  content   String
+  tags      String?  @default("[]")   // JSON 数组存储标签
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+// 内容历史表 - 记录生成与共情输出
+model ContentHistory {
+  id             String   @id @default(cuid())
+  userId         String?
+  user           User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  kind           String
+  topic          String?
+  originalContent String?
+  finalContent   String
+  stageSnapshot  String?  @default("{}")
+  empathySource  String?
+  userFeedback   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+  @@index([kind])
+  @@index([createdAt])
+}
+
+// 记忆快照表 - 独立持久化 Agent D 可用记忆摘要
+model MemorySnapshot {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  secondMeId   String
+  summary      String
+  highlights   String?  @default("[]")
+  rawSoftMemory String? @default("{}")
+  rawShades    String?  @default("{}")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([secondMeId])
+}

@@ -1,0 +1,40 @@
+{
+  "name": "truthpress-hackathon",
+  "version": "1.0.0",
+  "description": "SecondMe Hackathon Project",
+  "scripts": {
+    "predev": "node scripts/prepare-dev.cjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "tsc -p tsconfig.tests.json && node .tmp-tests/src/lib/__tests__/run-tests.js && node .tmp-tests/src/lib/session-store.test.js && node .tmp-tests/src/lib/generate-request.test.js && node .tmp-tests/src/lib/secondme-config.test.js && node .tmp-tests/src/lib/oauth-state.test.js && node .tmp-tests/src/lib/chat-request.test.js && node .tmp-tests/src/lib/rate-limit.test.js && node .tmp-tests/src/lib/rate-limit-policy.test.js && node .tmp-tests/src/lib/api-error.test.js && node .tmp-tests/src/lib/token-crypto.test.js",
+    "clean": "node scripts/prepare-dev.cjs",
+    "postinstall": "node postinstall-compat.cjs"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "axios": "^1.7.0",
+    "framer-motion": "^11.18.2",
+    "lucide-react": "^0.468.0",
+    "next": "^14.2.0",
+    "next-auth": "^4.24.0",
+    "openai": "^6.31.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.2.0",
+    "postcss": "^8.4.0",
+    "prisma": "^5.20.0",
+    "tailwindcss": "^3.4.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.0.0"
+  }
+}

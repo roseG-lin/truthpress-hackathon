@@ -1,0 +1,15 @@
+[theme]
+primaryColor = "#00F0FF"
+backgroundColor = "#0A0E1A"
+secondaryBackgroundColor = "#161B22"
+textColor = "#E6EDF3"
+font = "monospace"
+
+[server]
+headless = true
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+
+[ui]
+hideTopBar = false

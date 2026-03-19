@@ -1,0 +1,492 @@
+/* ========================================
+   TruthPress 求真报社 - 黑色极客风主题
+   The Epistemic Engine: Cyberpunk Edition
+   ======================================== */
+
+:root {
+  /* 背景色 */
+  --bg-primary: #0A0E1A;
+  --bg-secondary: #161B22;
+  --bg-tertiary: #21262D;
+  --bg-card: rgba(22, 27, 34, 0.8);
+  
+  /* 文字色 */
+  --text-primary: #E6EDF3;
+  --text-secondary: #8B949E;
+  --text-muted: #6E7681;
+  
+  /* 强调色 - 霓虹色系 */
+  --accent-cyan: #00F0FF;
+  --accent-cyan-dim: rgba(0, 240, 255, 0.1);
+  --accent-purple: #7B61FF;
+  --accent-purple-dim: rgba(123, 97, 255, 0.1);
+  --accent-green: #00FF94;
+  --accent-green-dim: rgba(0, 255, 148, 0.1);
+  --accent-red: #FF6B6B;
+  --accent-red-dim: rgba(255, 107, 107, 0.1);
+  --accent-yellow: #FFD93D;
+  --accent-yellow-dim: rgba(255, 217, 61, 0.1);
+  
+  /* 边框与特效 */
+  --border-color: #30363D;
+  --border-glow: #00F0FF;
+  --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.5);
+  --glow-purple: 0 0 20px rgba(123, 97, 255, 0.5);
+  --glow-green: 0 0 20px rgba(0, 255, 148, 0.5);
+  --glow-red: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+/* 全局样式 */
+.stApp {
+  background: linear-gradient(135deg, #0A0E1A 0%, #0D1117 50%, #0A0E1A 100%);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* 隐藏默认 footer */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+/* 主容器 */
+.main .block-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  max-width: 1400px;
+}
+
+/* ========================================
+   标题区域 - 霓虹发光效果
+   ======================================== */
+.main h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00F0FF, #7B61FF, #00FF94);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.3)); }
+  100% { filter: drop-shadow(0 0 20px rgba(123, 97, 255, 0.5)); }
+}
+
+.main h2, .main h3 {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.main h3 {
+  color: var(--accent-cyan);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ========================================
+   卡片容器 - 玻璃态 + 霓虹边框
+   ======================================== */
+.stMarkdown, .stInfo, .stSuccess, .stError, .stWarning {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+.stMarkdown:hover, .stInfo:hover, .stSuccess:hover, .stError:hover, .stWarning:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   输入框 - 科技风格
+   ======================================== */
+.stTextInput > div > div > input {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.stTextInput > div > div > input:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px var(--accent-cyan-dim);
+  outline: none;
+}
+
+.stTextInput > div > div > input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ========================================
+   按钮 - 霓虹发光效果
+   ======================================== */
+.stButton > button {
+  background: linear-gradient(135deg, var(--accent-purple), #5B41D0);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stButton > button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.stButton > button:hover::before {
+  left: 100%;
+}
+
+.stButton > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(123, 97, 255, 0.6);
+}
+
+.stButton > button:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   列容器 - Pipeline 阶段卡片
+   ======================================== */
+.column-block {
+  background: linear-gradient(180deg, var(--bg-card) 0%, rgba(10, 14, 26, 0.5) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.column-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-green));
+  opacity: 0.5;
+}
+
+.column-block:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+/* ========================================
+   状态指示器 - 红绿灯系统
+   ======================================== */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.status-true {
+  background: var(--accent-green-dim);
+  border: 1px solid var(--accent-green);
+  color: var(--accent-green);
+}
+
+.status-false {
+  background: var(--accent-red-dim);
+  border: 1px solid var(--accent-red);
+  color: var(--accent-red);
+}
+
+.status-uncertain {
+  background: var(--accent-yellow-dim);
+  border: 1px solid var(--accent-yellow);
+  color: var(--accent-yellow);
+}
+
+/* ========================================
+   代码块/JSON - 黑客终端风格
+   ======================================== */
+.stCode, pre {
+  background: #0D1117;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+}
+
+.stCode code, pre code {
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   加载动画 - 脉冲效果
+   ======================================== */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.spinner-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.spinner-dot:nth-child(2) { animation-delay: 0.2s; }
+.spinner-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ========================================
+   流程连接线 - 数据流动效果
+   ======================================== */
+.pipeline-connector {
+  position: relative;
+  height: 2px;
+  background: var(--border-color);
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.pipeline-connector::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  animation: flow 2s linear infinite;
+}
+
+@keyframes flow {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+
+/* ========================================
+   证据卡片 - 核查结果展示
+   ======================================== */
+.evidence-card {
+  background: var(--bg-secondary);
+  border-left: 4px solid;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+  transition: all 0.3s ease;
+}
+
+.evidence-card.support {
+  border-color: var(--accent-green);
+}
+
+.evidence-card.refute {
+  border-color: var(--accent-red);
+}
+
+.evidence-card.uncertain {
+  border-color: var(--accent-yellow);
+}
+
+.evidence-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+.evidence-source {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.evidence-claim {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin: 0.5rem 0;
+}
+
+.evidence-detail {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   徽章/标签 - Agent 标识
+   ======================================== */
+.agent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.agent-reporter {
+  background: var(--accent-purple-dim);
+  border: 1px solid var(--accent-purple);
+  color: var(--accent-purple);
+}
+
+.agent-checker {
+  background: var(--accent-cyan-dim);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+.agent-editor {
+  background: var(--accent-green-dim);
+  border: 1px solid var(--accent-green);
+  color: var(--accent-green);
+}
+
+/* ========================================
+   进度条 - 流水线状态
+   ======================================== */
+.progress-container {
+  background: var(--bg-tertiary);
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+/* ========================================
+   响应式适配
+   ======================================== */
+@media (max-width: 768px) {
+  .main h1 {
+    font-size: 1.75rem;
+  }
+  
+  .column-block {
+    margin-bottom: 1rem;
+  }
+  
+  .stButton > button {
+    width: 100%;
+  }
+}
+
+/* ========================================
+   滚动条美化
+   ======================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+/* ========================================
+   装饰元素 - 网格背景
+   ======================================== */
+.grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ========================================
+   粒子光点装饰
+   ======================================== */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-cyan);
+  animation: float 10s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+  }
+}

@@ -1,0 +1,238 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- 渐变定义 -->
+    <radialGradient id="bgGradient" cx="50%" cy="0%" r="70%">
+      <stop offset="0%" style="stop-color:#1c2a41;stop-opacity:1" />
+      <stop offset="55%" style="stop-color:#0a0e16;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0e16;stop-opacity:1" />
+    </radialGradient>
+    
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(11,18,32,0.95);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(11,18,32,0.85);stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="blockA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="blockB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f87171;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="blockC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="blockVerified" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4ade80;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="blockD" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c084fc;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="blockDebunked" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f87171;stop-opacity:0.5" />
+    </linearGradient>
+    
+    <!-- 光晕滤镜 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    
+    <filter id="glow-strong" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    
+    <!-- 阴影滤镜 -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="10" stdDeviation="20" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    
+    <!-- 动画定义 -->
+    <style>
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.1); }
+      }
+      @keyframes glow {
+        0%, 100% { stop-color: rgba(14,165,233,0.15); }
+        50% { stop-color: rgba(14,165,233,0.3); }
+      }
+      .floating { animation: float 2s ease-in-out infinite; }
+      .pulsing { animation: pulse 2s ease-in-out infinite; }
+    </style>
+  </defs>
+  
+  <!-- 背景层 -->
+  <rect width="1920" height="1080" fill="#0a0e16" />
+  <rect width="1920" height="1080" fill="url(#bgGradient)" />
+  
+  <!-- 装饰性光晕 -->
+  <circle cx="960" cy="200" r="400" fill="rgba(14,165,233,0.08)" filter="url(#glow)" />
+  <circle cx="600" cy="600" r="300" fill="rgba(139,92,246,0.05)" filter="url(#glow)" />
+  <circle cx="1300" cy="700" r="250" fill="rgba(34,197,94,0.05)" filter="url(#glow)" />
+  
+  <!-- 主标题区域 -->
+  <g transform="translate(960, 120)" text-anchor="middle">
+    <text fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" letter-spacing="0.35em" opacity="0.9">
+      TRUTHPRESS × SECONDME
+    </text>
+    <text fill="#3b82f6" font-family="system-ui, -apple-system, sans-serif" font-size="16" letter-spacing="0.3em" dy="35" opacity="0.7">
+      共 识 引 擎 · CONSENSUS ENGINE
+    </text>
+  </g>
+  
+  <!-- 副标题 -->
+  <g transform="translate(960, 200)" text-anchor="middle">
+    <text fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" letter-spacing="0.5em">
+      真理之梯
+    </text>
+    <text fill="#94a3b8" font-family="monospace" font-size="24" letter-spacing="0.2em" dy="40">
+      The Ladder of Truth
+    </text>
+  </g>
+  
+  <!-- 真理之梯可视化区域 -->
+  <g transform="translate(960, 520)" filter="url(#shadow)">
+    <!-- Agent C (法官) - 顶部 -->
+    <g class="floating" style="animation-delay: -0.5s">
+      <rect x="-100" y="-80" width="200" height="60" rx="30" fill="url(#blockC)" filter="url(#glow)" />
+      <text x="0" y="-45" fill="#ffffff" font-family="monospace" font-size="14" text-anchor="middle" font-weight="700">C - JUDGE</text>
+      
+      <!-- 漩涡光效 -->
+      <circle cx="0" cy="-50" r="80" fill="none" stroke="rgba(139,92,246,0.3)" stroke-width="2" opacity="0.5">
+        <animate attributeName="transform" from="rotate(0)" to="rotate(360)" dur="3s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- 验证通过的方块 -->
+    <g transform="translate(0, -10)">
+      <rect x="-120" y="-20" width="240" height="50" rx="25" fill="url(#blockVerified)" filter="url(#glow)" />
+      <text x="-90" y="10" fill="#ffffff" font-family="monospace" font-size="12" text-anchor="middle" font-weight="600">✓ VERIFIED</text>
+      <text x="0" y="12" fill="#ffffff" font-family="system-ui" font-size="13" text-anchor="middle">AI 可个性化教学</text>
+      <!-- 对勾图标 -->
+      <circle cx="100" cy="5" r="12" fill="#ffffff" opacity="0.3" />
+      <path d="M 95 5 L 98 8 L 105 2" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+    
+    <!-- Agent A (辩护方) -->
+    <g transform="translate(0, 50)">
+      <rect x="-120" y="-20" width="240" height="50" rx="25" fill="url(#blockA)" />
+      <text x="-90" y="10" fill="#ffffff" font-family="monospace" font-size="12" text-anchor="middle" font-weight="600">AGENT A</text>
+      <text x="0" y="12" fill="#ffffff" font-family="system-ui" font-size="13" text-anchor="middle">AI 带来 24/7 辅导</text>
+    </g>
+    
+    <!-- 被推翻的方块 (破碎效果) -->
+    <g transform="translate(0, 110)" opacity="0.4">
+      <rect x="-120" y="-20" width="240" height="50" rx="25" fill="url(#blockDebunked)" />
+      <text x="-90" y="10" fill="#ffffff" font-family="monospace" font-size="12" text-anchor="middle" font-weight="600">✗ DEBUNKED</text>
+      <text x="0" y="12" fill="#ffffff" font-family="system-ui" font-size="13" text-anchor="middle" opacity="0.7">AI 完全替代人类</text>
+      <!-- 破碎线条 -->
+      <line x1="-60" y1="-20" x2="-40" y2="20" stroke="#ffffff" stroke-width="1" opacity="0.5" />
+      <line x1="20" y1="-20" x2="40" y2="20" stroke="#ffffff" stroke-width="1" opacity="0.5" />
+    </g>
+    
+    <!-- Agent A 基础方块 -->
+    <g transform="translate(0, 170)">
+      <rect x="-120" y="-20" width="240" height="50" rx="25" fill="url(#blockA)" />
+      <text x="-90" y="10" fill="#ffffff" font-family="monospace" font-size="12" text-anchor="middle" font-weight="600">AGENT A</text>
+      <text x="0" y="12" fill="#ffffff" font-family="system-ui" font-size="13" text-anchor="middle">AI 减少行政负担</text>
+    </g>
+  </g>
+  
+  <!-- Agent 角色展示行 -->
+  <g transform="translate(960, 780)" text-anchor="middle">
+    <!-- Agent A -->
+    <g transform="translate(-180, 0)" class="pulsing">
+      <circle cx="0" cy="0" r="35" fill="url(#blockA)" filter="url(#glow)" />
+      <text y="5" fill="#ffffff" font-family="system-ui" font-size="20" font-weight="700" text-anchor="middle">A</text>
+      <text y="55" fill="#94a3b8" font-family="system-ui" font-size="13" text-anchor="middle">辩护方</text>
+      <text y="72" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">Dream Builder</text>
+    </g>
+    
+    <!-- Agent B -->
+    <g transform="translate(-60, 0)">
+      <circle cx="0" cy="0" r="35" fill="url(#blockB)" />
+      <text y="5" fill="#ffffff" font-family="system-ui" font-size="20" font-weight="700" text-anchor="middle">B</text>
+      <text y="55" fill="#94a3b8" font-family="system-ui" font-size="13" text-anchor="middle">反对方</text>
+      <text y="72" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">Reality Auditor</text>
+    </g>
+    
+    <!-- Agent C -->
+    <g transform="translate(60, 0)" class="floating">
+      <circle cx="0" cy="0" r="35" fill="url(#blockC)" filter="url(#glow-strong)" />
+      <text y="5" fill="#ffffff" font-family="system-ui" font-size="20" font-weight="700" text-anchor="middle">C</text>
+      <text y="55" fill="#94a3b8" font-family="system-ui" font-size="13" text-anchor="middle">法官</text>
+      <text y="72" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">Truth Synthesizer</text>
+    </g>
+    
+    <!-- Agent D -->
+    <g transform="translate(180, 0)">
+      <circle cx="0" cy="0" r="35" fill="url(#blockD)" fill="rgba(168,85,247,0.8)" stroke="#a855f7" stroke-width="2" stroke-dasharray="4,4" />
+      <text y="5" fill="#ffffff" font-family="system-ui" font-size="20" font-weight="700" text-anchor="middle">D</text>
+      <text y="55" fill="#94a3b8" font-family="system-ui" font-size="13" text-anchor="middle">用户</text>
+      <text y="72" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">Counter Memory</text>
+    </g>
+  </g>
+  
+  <!-- 底部标语 -->
+  <g transform="translate(960, 900)" text-anchor="middle">
+    <text fill="#64748b" font-family="system-ui" font-size="16" letter-spacing="0.2em">
+      让分歧被看见 · 让观点被检验 · 让共识被生成
+    </text>
+  </g>
+  
+  <!-- 底部装饰线 -->
+  <line x1="400" y1="940" x2="1520" y2="940" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+  
+  <!-- GitHub/演示信息 -->
+  <g transform="translate(960, 990)" text-anchor="middle">
+    <text fill="#475569" font-family="monospace" font-size="12" letter-spacing="0.1em">
+      github.com/TruthPress_Hackathon · http://localhost:3000/cafe
+    </text>
+  </g>
+  
+  <!-- 角落装饰 - 左上 -->
+  <g transform="translate(60, 60)">
+    <circle r="4" fill="#3b82f6" opacity="0.6" />
+    <circle r="4" cx="12" fill="#ef4444" opacity="0.6" />
+    <circle r="4" cx="24" fill="#8b5cf6" opacity="0.6" />
+  </g>
+  
+  <!-- 角落装饰 - 右上 -->
+  <g transform="translate(1860, 60)">
+    <text fill="#475569" font-family="monospace" font-size="11">HACKATHON 2026</text>
+  </g>
+  
+  <!-- 角落装饰 - 左下 -->
+  <g transform="translate(60, 1020)">
+    <text fill="#475569" font-family="monospace" font-size="11">SECONDME × TRUTHPRESS</text>
+  </g>
+  
+  <!-- 角落装饰 - 右下 -->
+  <g transform="translate(1830, 1020)">
+    <text fill="#475569" font-family="monospace" font-size="11">v1.0 · 2026-03-17</text>
+  </g>
+</svg>

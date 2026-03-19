@@ -1,0 +1,1 @@
+export { POST } from "../empathy-v2/route";

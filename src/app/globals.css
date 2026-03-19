@@ -1,0 +1,274 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   真理之梯 · 设计令牌 (Design Tokens)
+   基于 Apple HIG Motion + Fluent 2 + Material 3
+   ============================================ */
+
+:root {
+  /* 色彩系统 - Color Palette */
+  --bg-primary: #0a0e16;
+  --bg-secondary: #0b1220;
+  --bg-tertiary: #111827;
+  
+  --agent-a: #3b82f6;
+  --agent-a-light: #60a5fa;
+  --agent-b: #ef4444;
+  --agent-b-light: #f87171;
+  --agent-c: #8b5cf6;
+  --agent-c-light: #a78bfa;
+  --agent-d: #a855f7;
+  --agent-d-light: #c084fc;
+  
+  --verified: #22c55e;
+  --verified-light: #4ade80;
+  --debunked: #dc2626;
+  --debunked-light: #f87171;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  
+  /* 光效系统 - Glow Effects */
+  --glow-sky: rgba(14, 165, 233, 0.15);
+  --glow-violet: rgba(139, 92, 246, 0.15);
+  --glow-emerald: rgba(34, 197, 94, 0.15);
+  --glow-rose: rgba(220, 38, 38, 0.15);
+  
+  /* 缓动函数 - Easing Functions (Apple HIG + Material 3) */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring-gentle: cubic-bezier(0.25, 0.1, 0.25, 1);
+  
+  /* 时长规范 - Duration (Material 3) */
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 450ms;
+  --duration-slower: 600ms;
+  --duration-slowest: 1000ms;
+  
+  /* 阴影系统 - Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.6);
+  --shadow-2xl: 0 40px 80px rgba(0, 0, 0, 0.7);
+}
+
+/* ============================================
+   基础样式 - Base Styles
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   玻璃拟态 - Glassmorphism (Fluent 2 Mica)
+   ============================================ */
+
+.glass {
+  background: rgba(11, 18, 32, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(11, 18, 32, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   光晕效果 - Glow Effects
+   ============================================ */
+
+.glow-sky {
+  box-shadow: 0 0 40px var(--glow-sky);
+}
+
+.glow-violet {
+  box-shadow: 0 0 40px var(--glow-violet);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 40px var(--glow-emerald);
+}
+
+.glow-rose {
+  box-shadow: 0 0 40px var(--glow-rose);
+}
+
+/* ============================================
+   渐变背景 - Gradient Backgrounds
+   ============================================ */
+
+.gradient-radial-top {
+  background: radial-gradient(circle at top, #1c2a41, transparent 55%);
+}
+
+.gradient-linear-diagonal {
+  background: linear-gradient(120deg, rgba(8, 12, 22, 0.95), rgba(8, 12, 22, 0.75));
+}
+
+/* ============================================
+   动画关键帧 - Keyframe Animations
+   ============================================ */
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   工具类 - Utility Classes
+   ============================================ */
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 1.5s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* ============================================
+   滚动条美化 - Custom Scrollbar
+   ============================================ */
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+/* ============================================
+   响应式断点 - Responsive Breakpoints
+   ============================================ */
+
+/* 
+  sm: 640px
+  md: 768px
+  lg: 1024px
+  xl: 1280px
+  2xl: 1536px
+*/
+
+/* ============================================
+   无障碍 - Accessibility
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   选中文案 - Selection
+   ============================================ */
+
+::selection {
+  background: rgba(14, 165, 233, 0.3);
+  color: var(--text-primary);
+}
