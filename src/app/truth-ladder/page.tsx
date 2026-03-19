@@ -645,13 +645,13 @@ export default function TruthLadderPage() {
           {isProfileLoading ? (
             <div className="h-8 w-16 animate-pulse rounded-full bg-slate-200" />
           ) : access.showLogin ? (
-            <Link
+            <a
               href="/api/auth/login"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md"
             >
               <User className="h-4 w-4" />
               登录
-            </Link>
+            </a>
           ) : (
             <span className="text-xs text-slate-600">
               {user?.profiles?.[0]?.displayName || user?.secondMeId?.slice(0, 8) || "用户"}

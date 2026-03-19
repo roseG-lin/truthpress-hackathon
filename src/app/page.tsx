@@ -213,13 +213,13 @@ export default function HomePage() {
                 控制台
               </Link>
             ) : (
-              <Link
+              <a
                 href="/api/auth/login"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-sky-200 transition-all hover:shadow-lg hover:shadow-sky-300"
               >
                 <Shield className="h-4 w-4" />
                 登录
-              </Link>
+              </a>
             )}
           </div>
         </div>
@@ -312,13 +312,13 @@ export default function HomePage() {
               
               {!user && (
                 <div className="mt-5 pt-5 border-t border-gray-200">
-                  <Link
+                  <a
                     href="/api/auth/login"
                     className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-sky-200 transition-all hover:shadow-lg hover:shadow-sky-300 hover:-translate-y-0.5"
                   >
                     <Shield className="h-4 w-4" />
                     使用 SecondMe 登录
-                  </Link>
+                  </a>
                 </div>
               )}
               

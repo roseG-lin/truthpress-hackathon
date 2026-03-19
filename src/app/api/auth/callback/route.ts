@@ -11,12 +11,22 @@ import { normalizeTokenForStorage } from "@/lib/token-crypto";
 
 const TOKEN_URL = "https://app.mindos.com/gate/lab/api/oauth/token/code";
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+  const url = new URL(request.url);
+  const { searchParams } = url;
   const code = searchParams.get("code");
   const state = searchParams.get("state");
   const error = searchParams.get("error");
 
+  // 详细调试日志
+  console.log("=== OAuth Callback Debug ===");
+  console.log("Full URL:", url.href);
+  console.log("Code:", code ? "present" : "MISSING");
+  console.log("State:", state ? "present" : "MISSING");
+  console.log("Error:", error || "none");
+  console.log("All params:", Object.fromEntries(searchParams.entries()));
+
   if (error) {
+    console.error("OAuth error from SecondMe:", error);
     return redirect(`/?error=${encodeURIComponent(error)}`);
   }
 
