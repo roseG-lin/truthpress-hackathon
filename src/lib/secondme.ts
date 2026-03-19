@@ -20,14 +20,6 @@ export function getAuthUrl(state: string): string {
     redirect_uri: config.callbackUrl,
     response_type: "code",
     state,
-    scope: [
-      "user.info",
-      "user.info.shades",
-      "user.info.softmemory",
-      "chat",
-      "note.add",
-      "voice",
-    ].join(" "),
   });
 
   return `${config.oauthUrl}?${params.toString()}`;

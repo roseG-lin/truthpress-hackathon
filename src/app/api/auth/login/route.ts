@@ -32,14 +32,6 @@ export async function GET(request: Request) {
     redirect_uri: config.callbackUrl,
     response_type: "code",
     state,
-    scope: [
-      "user.info",
-      "user.info.shades",
-      "user.info.softmemory",
-      "chat",
-      "note.add",
-      "voice",
-    ].join(" "),
   });
 
   redirect(`${config.oauthUrl}?${params.toString()}`);
