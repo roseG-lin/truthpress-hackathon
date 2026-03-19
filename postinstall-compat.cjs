@@ -152,20 +152,30 @@ runPrismaDbPush();
 patchNextEmptyRevalidateTags();
 
 function runPrismaDbPush() {
-  // 只在生产环境运行 db push
-  if (process.env.NODE_ENV !== "production") {
+  // 在 Railway 环境或生产环境运行 db push
+  const isRailway = !!process.env.RAILWAY_ENVIRONMENT || process.env.NODE_ENV === "production";
+
+  if (!isRailway) {
     return;
   }
 
+  console.log("Running prisma db push to create database tables...");
+
   const script = path.join(process.cwd(), "node_modules", "prisma", "build", "index.js");
-  const result = spawnSync(process.execPath, [script, "db", "push", "--skip-generate"], { stdio: "inherit" });
+  const result = spawnSync(process.execPath, [script, "db", "push", "--skip-generate", "--accept-data-loss"], {
+    stdio: "inherit",
+    env: { ...process.env }
+  });
 
   if (result.error) {
-    console.warn("Could not run prisma db push:", result.error.message);
-    return;
+    console.error("Failed to run prisma db push:", result.error.message);
+    throw result.error;
   }
 
   if (typeof result.status === "number" && result.status !== 0) {
-    console.warn(`prisma db push exited with status ${result.status}`);
+    console.error(`prisma db push failed with status ${result.status}`);
+    throw new Error(`prisma db push failed with status ${result.status}`);
   }
+
+  console.log("Database tables created successfully.");
 }
