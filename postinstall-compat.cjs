@@ -148,4 +148,24 @@ function patchNextEmptyRevalidateTags() {
 }
 
 runPrismaGenerate();
+runPrismaDbPush();
 patchNextEmptyRevalidateTags();
+
+function runPrismaDbPush() {
+  // 只在生产环境运行 db push
+  if (process.env.NODE_ENV !== "production") {
+    return;
+  }
+
+  const script = path.join(process.cwd(), "node_modules", "prisma", "build", "index.js");
+  const result = spawnSync(process.execPath, [script, "db", "push", "--skip-generate"], { stdio: "inherit" });
+
+  if (result.error) {
+    console.warn("Could not run prisma db push:", result.error.message);
+    return;
+  }
+
+  if (typeof result.status === "number" && result.status !== 0) {
+    console.warn(`prisma db push exited with status ${result.status}`);
+  }
+}
