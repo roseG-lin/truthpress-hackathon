@@ -7,6 +7,11 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "求真社-TRUTHPRESS - SecondMe 集成应用",
   description: "SecondMe Hackathon 参赛项目",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 }
 
 export default function RootLayout({
