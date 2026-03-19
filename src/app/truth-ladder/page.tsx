@@ -270,8 +270,8 @@ export default function TruthLadderPage() {
     setSimulationStarted(true);
 
     const runSimulation = async () => {
-      const claim1 = "AI can provide 24/7 tutoring support.";
-      const claim2 = "AI can adapt explanations to each learner.";
+      const claim1 = "AI 可以提供全天候辅导支持。";
+      const claim2 = "AI 可以根据每个学习者调整解释方式。";
 
       await buildBlock(claim1);
       await wait(500);
@@ -285,7 +285,7 @@ export default function TruthLadderPage() {
         "阶段总结：AI 能扩大支持覆盖面，但个性化效果和教育公平仍取决于实际部署。";
       setInitialConclusion(initialSummary);
       await wait(700);
-      await challengeBlock("Education still depends on trust and human context.");
+      await challengeBlock("教育仍然依赖于信任和人文环境。");
       await wait(700);
       let finalConclusion = initialSummary;
       try {

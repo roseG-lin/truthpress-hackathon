@@ -79,34 +79,34 @@ export default function GameArena() {
 
     const runSimulation = async () => {
       // Phase 1: A builds
-      await buildBlock('AI can personalize learning for every student');
+      await buildBlock('AI 可以为每个学生实现个性化学习');
       await new Promise(r => setTimeout(r, 800));
-      await buildBlock('AI reduces teacher workload significantly');
+      await buildBlock('AI 显著减少教师工作量');
       await new Promise(r => setTimeout(r, 800));
-      await buildBlock('AI provides 24/7 tutoring access');
+      await buildBlock('AI 提供全天候辅导访问');
 
       // Phase 2: B audits
       await new Promise(r => setTimeout(r, 1000));
-      await auditBlock('AI can personalize learning for every student', 'verified'); // Verify first
+      await auditBlock('AI 可以为每个学生实现个性化学习', 'verified'); // Verify first
       await new Promise(r => setTimeout(r, 800));
-      await auditBlock('AI reduces teacher workload significantly', 'debunked'); // Destroy second
+      await auditBlock('AI 显著减少教师工作量', 'debunked'); // Destroy second
       await new Promise(r => setTimeout(r, 1000));
-      await auditBlock('AI provides 24/7 tutoring access', 'verified'); // Verify third (now at index 1)
+      await auditBlock('AI 提供全天候辅导访问', 'verified'); // Verify third (now at index 1)
 
       // Phase 3: D challenges
       await new Promise(r => setTimeout(r, 1500));
       const initialSummary =
-        'Summary: AI boosts efficiency and personalization, but needs firm guardrails.';
+        '总结：AI 提升效率和个性化，但需要严格的监管。';
       setInitialConclusion(initialSummary);
       await new Promise(r => setTimeout(r, 1200));
-      await challengeBlock('Human empathy builds trust');
+      await challengeBlock('人类共情建立信任');
       await new Promise(r => setTimeout(r, 800));
-      await challengeBlock('Over-automation risks equity gaps');
+      await challengeBlock('过度自动化可能导致公平性差距');
 
       // Phase 4: C merges
       await new Promise(r => setTimeout(r, 1500));
       let finalConclusion =
-        'Balanced approach: AI augments human teachers, not replaces them';
+        '平衡方法：AI 增强人类教师，而不是取代他们';
       try {
         const payload = buildEmpathyDemoPayload(initialSummary);
         const response = await fetch('/api/empathy-v2', {
