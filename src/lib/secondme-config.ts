@@ -1,4 +1,4 @@
-const DEFAULT_SECONDME_API_URL = "https://app.mindos.com/gate/lab/api/secondme";
+const DEFAULT_SECONDME_API_URL = "https://api.mindverse.com/gate/lab/api/secondme";
 const DEFAULT_SECONDME_OAUTH_URL = "https://go.second.me/oauth/";
 
 type EnvSource = Record<string, string | undefined>;

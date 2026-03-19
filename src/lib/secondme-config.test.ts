@@ -19,5 +19,5 @@ const config = getSecondMeConfig({
   SECONDME_CALLBACK_URL: "http://localhost:3000/api/auth/callback",
 });
 
-assert.equal(config.apiUrl, "https://app.mindos.com/gate/lab/api/secondme");
+assert.equal(config.apiUrl, "https://api.mindverse.com/gate/lab/api/secondme");
 assert.equal(config.oauthUrl, "https://go.second.me/oauth/");

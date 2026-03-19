@@ -1,7 +1,7 @@
 import { getSecondMeConfig } from "./secondme-config";
 
-const TOKEN_URL = "https://app.mindos.com/gate/lab/api/oauth/token/code";
-const REFRESH_TOKEN_URL = "https://app.mindos.com/gate/lab/api/oauth/token/refresh";
+const TOKEN_URL = "https://api.mindverse.com/gate/lab/api/oauth/token/code";
+const REFRESH_TOKEN_URL = "https://api.mindverse.com/gate/lab/api/oauth/token/refresh";
 
 type TokenResponse = {
   accessToken: string;

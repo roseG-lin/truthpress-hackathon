@@ -9,7 +9,7 @@ import { prisma } from "@/lib/prisma";
 import { getSecondMeConfig } from "@/lib/secondme-config";
 import { normalizeTokenForStorage } from "@/lib/token-crypto";
 
-const TOKEN_URL = "https://app.mindos.com/gate/lab/api/oauth/token/code";
+const TOKEN_URL = "https://api.mindverse.com/gate/lab/api/oauth/token/code";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const { searchParams } = url;
