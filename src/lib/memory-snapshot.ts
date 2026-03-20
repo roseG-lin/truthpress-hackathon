@@ -37,8 +37,8 @@ export async function ensureMemorySnapshotTable() {
           "highlights" TEXT DEFAULT '[]',
           "rawSoftMemory" TEXT DEFAULT '{}',
           "rawShades" TEXT DEFAULT '{}',
-          "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+          "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
       `);
       await prisma.$executeRawUnsafe(

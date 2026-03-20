@@ -101,8 +101,8 @@ export async function ensureContentHistoryTable() {
           "stageSnapshot" TEXT DEFAULT '{}',
           "empathySource" TEXT,
           "userFeedback" TEXT,
-          "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+          "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
       `);
       await prisma.$executeRawUnsafe(
