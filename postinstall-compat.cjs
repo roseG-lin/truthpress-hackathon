@@ -8,7 +8,9 @@ function runPrismaDbPush() {
   const isRailway = !!process.env.RAILWAY_ENVIRONMENT ||
                      (process.env.NODE_ENV === "production" && process.env.DATABASE_URL?.includes("railway"));
 
-  if (!isRailway) {
+  // 如果是在 Railway 构建环境中（没有 DATABASE_URL），跳过 db push
+  if (!isRailway || !process.env.DATABASE_URL) {
+    console.log("Skipping prisma db push in build environment (will run at runtime)");
     return;
   }
 
