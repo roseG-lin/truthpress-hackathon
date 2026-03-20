@@ -2,6 +2,26 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
 
+// 检测是否在 Railway 环境，如果是则修改 schema 为 PostgreSQL
+function fixPrismaSchemaForRailway() {
+  const isRailway = !!process.env.RAILWAY_ENVIRONMENT ||
+                     process.env.NODE_ENV === "production" &&
+                     process.env.DATABASE_URL?.includes("railway");
+
+  if (isRailway) {
+    const schemaPath = path.join(process.cwd(), "prisma", "schema.prisma");
+    let schema = fs.readFileSync(schemaPath, "utf8");
+
+    // 只在必要时修改
+    if (schema.includes('provider = "sqlite"')) {
+      console.log("Railway detected: switching Prisma schema from SQLite to PostgreSQL");
+      schema = schema.replace('provider = "sqlite"', 'provider = "postgresql"');
+      fs.writeFileSync(schemaPath, schema, "utf8");
+      console.log("✓ Prisma schema updated to PostgreSQL");
+    }
+  }
+}
+
 function runPrismaGenerate() {
   const script = path.join(process.cwd(), "node_modules", "prisma", "build", "index.js");
   const result = spawnSync(process.execPath, [script, "generate"], { stdio: "inherit" });
@@ -147,5 +167,6 @@ function patchNextEmptyRevalidateTags() {
   }
 }
 
+fixPrismaSchemaForRailway();
 runPrismaGenerate();
 patchNextEmptyRevalidateTags();
