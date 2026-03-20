@@ -69,7 +69,8 @@ export async function upsertMemorySnapshot(input: UpsertMemorySnapshotInput) {
       "summary",
       "highlights",
       "rawSoftMemory",
-      "rawShades"
+      "rawShades",
+      "updatedAt"
     ) VALUES (
       ${id},
       ${input.userId},
@@ -77,7 +78,8 @@ export async function upsertMemorySnapshot(input: UpsertMemorySnapshotInput) {
       ${input.summary},
       ${highlights},
       ${rawSoftMemory},
-      ${rawShades}
+      ${rawShades},
+      CURRENT_TIMESTAMP
     )
     ON CONFLICT("userId") DO UPDATE SET
       "secondMeId" = excluded."secondMeId",
