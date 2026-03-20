@@ -24,12 +24,14 @@ function runPrismaDbPush() {
 
   if (result.error) {
     console.error("Could not run prisma db push:", result.error.message);
-    throw result.error;
+    console.log("⚠️  Skipping db push, will retry at runtime");
+    return; // 不抛出错误，继续构建
   }
 
   if (typeof result.status === "number" && result.status !== 0) {
     console.error(`prisma db push failed with status ${result.status}`);
-    throw new Error(`prisma db push failed with status ${result.status}`);
+    console.log("⚠️  Skipping db push, will retry at runtime");
+    return; // 不抛出错误，继续构建
   }
 
   console.log("✓ Database tables created/updated successfully.");
