@@ -10,6 +10,7 @@ import { getSecondMeConfig } from "@/lib/secondme-config";
 import { normalizeTokenForStorage } from "@/lib/token-crypto";
 
 const TOKEN_URL = "https://api.mindverse.com/gate/lab/api/oauth/token/code";
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const { searchParams } = url;
@@ -50,6 +51,13 @@ export async function GET(request: Request) {
   const config = getSecondMeConfig();
 
   try {
+    // ========== Step 1: Token 交换 ==========
+    console.log("Step 1: Exchanging code for token...");
+    console.log("Token URL:", TOKEN_URL);
+    console.log("Callback URL:", config.callbackUrl);
+    console.log("Client ID:", config.clientId);
+    console.log("API URL:", config.apiUrl);
+
     const params = new URLSearchParams({
       grant_type: "authorization_code",
       code,
@@ -66,6 +74,8 @@ export async function GET(request: Request) {
       body: params.toString(),
     });
 
+    console.log("Step 1 result: status =", tokenResponse.status);
+
     if (!tokenResponse.ok) {
       const errorText = await tokenResponse.text();
       console.error("Token error:", errorText);
@@ -73,6 +83,8 @@ export async function GET(request: Request) {
     }
 
     const tokenResult = await tokenResponse.json();
+    console.log("Step 1 result: code =", tokenResult.code);
+
     if (tokenResult.code !== 0) {
       throw new Error(tokenResult.message || "Token exchange failed");
     }
@@ -82,9 +94,14 @@ export async function GET(request: Request) {
     const refreshToken = tokenData.refreshToken;
     const expiresIn = tokenData.expiresIn || 7200;
 
+    // ========== Step 2: 获取用户信息 ==========
+    console.log("Step 2: Fetching user info from:", `${config.apiUrl}/user/info`);
+
     const userResponse = await fetch(`${config.apiUrl}/user/info`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
+
+    console.log("Step 2 result: status =", userResponse.status);
 
     if (!userResponse.ok) {
       throw new Error("Failed to get user info");
@@ -98,7 +115,12 @@ export async function GET(request: Request) {
       throw new Error("No user ID in response");
     }
 
+    console.log("Step 2: secondMeId =", secondMeId);
+
     const expiresAt = new Date(Date.now() + expiresIn * 1000);
+
+    // ========== Step 3: 数据库操作 ==========
+    console.log("Step 3: Database operation, secondMeId =", secondMeId);
 
     let user = await prisma.user.findUnique({
       where: { secondMeId },
@@ -147,7 +169,11 @@ export async function GET(request: Request) {
       });
     }
 
-    // 获取 SecondMe 记忆信息并初始化
+    console.log("Step 3 result: user.id =", user.id);
+
+    // ========== Step 4: 获取记忆信息 ==========
+    console.log("Step 4: Fetching memory data...");
+
     try {
       const [shadesResponse, softMemoryResponse] = await Promise.all([
         fetch(`${config.apiUrl}/user/info/shades`, {
@@ -202,20 +228,35 @@ export async function GET(request: Request) {
         });
       }
 
-      // 创建记忆快照
+      // 创建记忆快照 - 修复 NOT NULL 问题
       await upsertMemorySnapshot({
         userId: user.id,
         secondMeId,
         summary: profileData.memorySummary || "",
         highlights: profileData.memoryHighlights || [],
-        rawSoftMemory: profileData.softMemory,
-        rawShades: profileData.shades,
+        rawSoftMemory: profileData.softMemory || {},
+        rawShades: profileData.shades || {},
       });
+
+      console.log("Step 4: Memory snapshot created successfully");
     } catch (memoryError) {
-      console.error("Failed to initialize user memory:", memoryError);
+      console.error("Step 4 FAILED: Failed to initialize user memory:", memoryError);
     }
 
-    await setSessionCookie(user.id);
+    console.log("Step 4 done (continuing to set session...)");
+
+    // ========== Step 5: 设置 session ==========
+    console.log("Step 5: Setting session cookie for user.id =", user.id);
+
+    try {
+      await setSessionCookie(user.id);
+      console.log("Step 5: Session cookie set successfully");
+    } catch (sessionError) {
+      console.error("Step 5 FAILED: setSessionCookie error:", sessionError);
+      throw sessionError;
+    }
+
+    console.log("Step 5 done, redirecting to /dashboard");
     redirect("/dashboard");
   } catch (caughtError: unknown) {
     if (
