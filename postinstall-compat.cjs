@@ -3,6 +3,36 @@ const path = require("node:path");
 const { spawnSync } = require("node:child_process");
 
 // 检测是否在 Railway 环境，如果是则修改 schema 为 PostgreSQL
+function runPrismaDbPush() {
+  // 只在 Railway 环境（production）运行 db push
+  const isRailway = !!process.env.RAILWAY_ENVIRONMENT ||
+                     (process.env.NODE_ENV === "production" && process.env.DATABASE_URL?.includes("railway"));
+
+  if (!isRailway) {
+    return;
+  }
+
+  console.log("Running prisma db push to create database tables...");
+
+  const script = path.join(process.cwd(), "node_modules", "prisma", "build", "index.js");
+  const result = spawnSync(process.execPath, [script, "db", "push", "--skip-generate", "--accept-data-loss"], {
+    stdio: "inherit",
+    env: { ...process.env }
+  });
+
+  if (result.error) {
+    console.error("Could not run prisma db push:", result.error.message);
+    throw result.error;
+  }
+
+  if (typeof result.status === "number" && result.status !== 0) {
+    console.error(`prisma db push failed with status ${result.status}`);
+    throw new Error(`prisma db push failed with status ${result.status}`);
+  }
+
+  console.log("✓ Database tables created/updated successfully.");
+}
+
 function fixPrismaSchemaForRailway() {
   const isRailway = !!process.env.RAILWAY_ENVIRONMENT ||
                      process.env.NODE_ENV === "production" &&
@@ -168,5 +198,6 @@ function patchNextEmptyRevalidateTags() {
 }
 
 fixPrismaSchemaForRailway();
+runPrismaDbPush();
 runPrismaGenerate();
 patchNextEmptyRevalidateTags();
